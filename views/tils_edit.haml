@@ -1,0 +1,8 @@
+!!! 5
+%html
+  %head
+  %body
+    %p
+      %form{method: "POST", action: "/tils/#{til.id}"}
+        %input{:type => "text", :name => "TIL"}= til.value
+        %input{:type => "submit", :value => "Save"}
