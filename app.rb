@@ -1,6 +1,17 @@
 require "sinatra/base"
 require "mongo_mapper"
+
+if ENV["MONGOHQ_URL"]
+  uri = URI.parse(ENV['MONGOHQ_URL'])
+  MongoMapper.connection = Mongo::Connection.from_uri(ENV['MONGOHQ_URL'])
+  MongoMapper.database = uri.path.gsub(/^\//, '')
+else
+  MongoMapper.connection = Mongo::Connection.new('localhost')
+  MongoMapper.database = "til"
+end
+
 require_relative "lib/til"
+require_relative "lib/user"
 
 class TilApp < Sinatra::Base
   get '/tils/new' do
@@ -16,23 +27,29 @@ class TilApp < Sinatra::Base
   end
 
   post '/tils/:id' do
-    til = Til.find(params[:id])
+    til = current_user.tils.find(params[:id])
     til.value = params[:TIL]
     til.save
     haml :tils_edit
   end
 
+  def current_user
+    User.first(:name => "Aidy") || User.create(:name => "Aidy")
+  end
+
   post '/tils' do
-    Til.create(:value => params[:TIL]).save
+    user = current_user
+    user.tils << Til.new(:value => params[:TIL])
+    user.save
     render_tils
   end
 
   def til
-    @til ||= Til.find(params[:id])
+    @til ||= current_user.tils.find(params[:id])
   end
 
   def render_tils
-    @tils = Til.all
+    @tils = current_user.tils
     haml(:tils_index)
   end
 end

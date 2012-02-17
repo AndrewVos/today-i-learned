@@ -5,7 +5,8 @@ def edit content
   click_button "Save"
 end
 
-def save til
+def save til, user_name=nil
+  authenticate(user_name) if user_name
   visit "/tils/new"
   fill_in "TIL", :with => til
   click_button "Save"
