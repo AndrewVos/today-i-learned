@@ -7,7 +7,10 @@ GEM
     activesupport (3.2.1)
       i18n (~> 0.6)
       multi_json (~> 1.0)
+    awesome_print (0.4.0)
     bson (1.5.2)
+    bson_ext (1.5.2)
+      bson (= 1.5.2)
     builder (3.0.0)
     capybara (1.1.2)
       mime-types (>= 1.16)
@@ -75,6 +78,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  awesome_print
+  bson_ext
   capybara
   cucumber
   haml

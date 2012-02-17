@@ -1,8 +1,11 @@
+ENV["RACK_ENV"] = "test"
+
 require "capybara/cucumber"
+require 'awesome_print'
 require_relative "../../app"
 
 Capybara.app = TilApp
 
 Before do
-  Til.delete_all
+  User.delete_all
 end
