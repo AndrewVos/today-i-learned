@@ -34,13 +34,24 @@ class TilApp < Sinatra::Base
   end
 
   def current_user
-    User.first(:name => "Aidy") || User.create(:name => "Aidy")
+    @current_user || User.first(:name => "Aidy") || User.create(:name => "Aidy")
   end
 
   post '/tils' do
     user = current_user
     user.tils << Til.new(:value => params[:TIL])
     user.save
+    render_tils
+  end
+
+  get '/login' do
+    haml :login
+  end
+
+  post '/login' do
+    user = params[:user]
+    pwd = params[:pwd]
+    @current_user = User.first(:name => user, :password => pwd)
     render_tils
   end
 

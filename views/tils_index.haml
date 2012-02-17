@@ -2,6 +2,7 @@
 %html
   %head
   %body
+    %div Logged in as #{current_user.name}
     - @tils.each do |til|
       %p= til.value
       %a{:href => "/tils/#{til.id}/edit"} Edit
