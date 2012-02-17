@@ -1,0 +1,12 @@
+div.logo {
+  padding: 20px;
+}
+div.til {
+  background-color: #F7F7F9;
+  margin-bottom: 10px;
+  padding: 9px;
+}
+
+div.til p {
+  font-size: large;
+}
