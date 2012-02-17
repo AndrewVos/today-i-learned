@@ -4,3 +4,4 @@
   %body
     - @tils.each do |til|
       %p= til.value
+      %a{:href => "/tils/#{til.id}/edit"} Edit

@@ -7,8 +7,19 @@ class TilApp < Sinatra::Base
     haml(:tils_new)
   end
 
+  get '/tils/:id/edit' do
+    haml :tils_edit
+  end
+
   get '/tils' do
     render_tils
+  end
+
+  post '/tils/:id' do
+    til = Til.find(params[:id])
+    til.value = params[:TIL]
+    til.save
+    haml :tils_edit
   end
 
   post '/tils' do
@@ -16,11 +27,14 @@ class TilApp < Sinatra::Base
     render_tils
   end
 
+  def til
+    @til ||= Til.find(params[:id])
+  end
+
   def render_tils
     @tils = Til.all
     haml(:tils_index)
   end
-
 end
 
 TilApp.run! if $0 == __FILE__
