@@ -1,6 +1,11 @@
 div.logo {
   padding: 20px;
 }
+
+div.logo h1 {
+  font-size: 60px;
+}
+
 div.til {
   background-color: #F7F7F9;
   margin-bottom: 10px;
