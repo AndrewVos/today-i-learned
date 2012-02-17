@@ -1,7 +1,3 @@
-!!! 5
-%html
-  %head
-  %body
-    - @tils.each do |til|
-      %p= til.value
-      %a{:href => "/tils/#{til.id}/edit"} Edit
+- @tils.each do |til|
+  %p= til.value
+  %a{:href => "/tils/#{til.id}/edit"} Edit
